@@ -1,4 +1,4 @@
-# Serwujemy-pliki
+# Operacje-CRUD-na-pliku-JSON
 
 ### To install packages run
 ```sh
@@ -10,4 +10,4 @@ $ npm install
 $ npm start
 ```
 
-### Go to localhost:8080/joke to get something about Chuck Norris
+### Go to localhost:3000
