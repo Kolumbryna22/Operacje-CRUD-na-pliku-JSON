@@ -1,11 +1,30 @@
+var fs = require('fs');
 var express = require('express');
 var app = express();
-var server;
+var stringifyFile;
 
-app.get('/', function(req, res) {
-    res.send('Hello world');
+app.use(bodyParser.json());
+
+app.get('/getNote', function(req, res) {
+    fs.readFile('./test.json', 'utf-8', function(err, data) {
+        if (err) throw err;
+
+        stringifyFile = data;
+        res.send(data);
+    });
 });
 
-server = app.listen(3000, function() {
-    console.log('Aplikacja nasłuchuje na http://localhost:3000');
+app.post('/updateNote/:note', function(req, res) {
+    stringifyFile = req.params.note;
+    fs.writeFile('./test.json', stringifyFile, function(err) {
+        if (err) throw err;
+
+        console.log('file updated');
+    })
+})
+
+app.listen(3000);
+
+app.use(function(req, res, next) {
+    res.status(404).send('Wybacz, nie mogliśmy znaleźć wyszukiwanej frazy');
 });
